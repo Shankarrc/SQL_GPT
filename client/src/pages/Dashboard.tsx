@@ -100,18 +100,18 @@ const Dashboard = () => {
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">System Status</CardTitle>
             <Activity className={`h-4 w-4 ${systemStatus === 'operational'
-                ? 'text-emerald-500 animate-pulse'
-                : systemStatus === 'checking'
-                  ? 'text-blue-400 animate-spin'
-                  : 'text-red-500'
+              ? 'text-emerald-500 animate-pulse'
+              : systemStatus === 'checking'
+                ? 'text-blue-400 animate-spin'
+                : 'text-red-500'
               }`} />
           </CardHeader>
           <CardContent>
             <div className={`text-2xl font-bold ${systemStatus === 'operational'
-                ? 'text-emerald-500'
-                : systemStatus === 'checking'
-                  ? 'text-blue-400'
-                  : 'text-red-500'
+              ? 'text-emerald-500'
+              : systemStatus === 'checking'
+                ? 'text-blue-400'
+                : 'text-red-500'
               }`}>
               {systemStatus === 'checking' ? 'Checking...' : systemStatus === 'operational' ? 'Operational' : 'Offline'}
             </div>
@@ -160,10 +160,10 @@ const Dashboard = () => {
                     className="z-10 flex flex-col items-center group focus:outline-none"
                   >
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${isCompleted
-                        ? 'bg-primary border-primary text-primary-foreground'
-                        : isActive
-                          ? 'bg-background border-primary text-primary scale-110 ring-4 ring-primary/20'
-                          : 'bg-background border-muted text-muted-foreground group-hover:border-muted-foreground'
+                      ? 'bg-primary border-primary text-primary-foreground'
+                      : isActive
+                        ? 'bg-background border-primary text-primary scale-110 ring-4 ring-primary/20'
+                        : 'bg-background border-muted text-muted-foreground group-hover:border-muted-foreground'
                       }`}>
                       {isCompleted ? <Check className="w-5 h-5" /> : step.id}
                     </div>
@@ -200,6 +200,9 @@ const Dashboard = () => {
                       <div><span className="text-muted-foreground">Host:</span> mysql-15cc4cc3-shankar7750739-4ea9.i.aivencloud.com</div>
                       <div><span className="text-muted-foreground">Port:</span> 25249</div>
                       <div><span className="text-muted-foreground">Username:</span> avnadmin</div>
+                    </div>
+                    <div className="text-red-500 font-semibold text-xs animate-pulse">
+                      ⚠️ Don't change host, port, username, password
                     </div>
                   </div>
 
@@ -296,17 +299,17 @@ const Dashboard = () => {
                         <span className="text-muted-foreground block mb-1">Type</span>
                         <div className="bg-background border p-2 rounded font-mono text-foreground capitalize">mysql</div>
                       </div>
-                      <div className="col-span-2 border-2 border-red-500/80 rounded-lg p-2.5 bg-red-950/10">
-                        <span className="text-red-400 font-semibold block mb-0.5 text-[11px]">Host (Do Not Change)</span>
-                        <div className="font-mono text-red-200 text-xs break-all font-bold">mysql-15cc4cc3-shankar7750739-4ea9.i.aivencloud.com</div>
+                      <div className="col-span-2 border-2 border-primary/80 rounded-lg p-2.5 bg-primary/5">
+                        <span className="text-primary font-semibold block mb-0.5 text-[11px]">Host (Crucial Step)</span>
+                        <div className="font-mono text-foreground text-xs break-all font-bold">mysql-15cc4cc3-shankar7750739-4ea9.i.aivencloud.com</div>
                       </div>
                       <div>
-                        <span className="text-red-400 block mb-1">Port</span>
-                        <div className="bg-red-950/10 border border-red-500/50 p-2 rounded font-mono text-red-200">25249</div>
+                        <span className="text-muted-foreground block mb-1">Port</span>
+                        <div className="bg-background border p-2 rounded font-mono text-foreground">25249</div>
                       </div>
                       <div>
-                        <span className="text-red-400 block mb-1">Username</span>
-                        <div className="bg-red-950/10 border border-red-500/50 p-2 rounded font-mono text-red-200">avnadmin</div>
+                        <span className="text-muted-foreground block mb-1">Username</span>
+                        <div className="bg-background border p-2 rounded font-mono text-foreground">avnadmin</div>
                       </div>
                       <div className="col-span-2">
                         <span className="text-muted-foreground block mb-1">Database Name</span>

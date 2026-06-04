@@ -42,6 +42,7 @@ const DatabaseConfig = () => {
     setLoading(true);
     try {
       await api.post('/database/connect', formData);
+      setFormData({ ...formData, password: '' });
       fetchConnections();
       toast.success('Connection successful!');
     } catch (error: any) {
@@ -64,6 +65,9 @@ const DatabaseConfig = () => {
           <CardHeader>
             <CardTitle>Add Connection</CardTitle>
             <CardDescription>Connect to a new MySQL database.</CardDescription>
+            <div className="text-red-500 text-sm font-semibold mt-2 animate-pulse">
+              ⚠️ Don't change host, port, username, password
+            </div>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleConnect} className="space-y-4">
@@ -80,23 +84,23 @@ const DatabaseConfig = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-red-400">Host (Do Not Change)</label>
-                  <Input required readOnly value={formData.host} className="border-red-500/50 text-red-400 bg-red-950/10 cursor-not-allowed" />
+                  <label className="text-sm font-medium">Host <span className="text-red-500 font-semibold">(Don't change)</span></label>
+                  <Input required value={formData.host} onChange={e => setFormData({ ...formData, host: e.target.value })} />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-red-400">Port (Do Not Change)</label>
-                  <Input required readOnly type="number" value={formData.port} className="border-red-500/50 text-red-400 bg-red-950/10 cursor-not-allowed" />
+                  <label className="text-sm font-medium">Port <span className="text-red-500 font-semibold">(Don't change)</span></label>
+                  <Input required type="number" value={formData.port} onChange={e => setFormData({ ...formData, port: e.target.value })} />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-red-400">Username (Do Not Change)</label>
-                  <Input required readOnly value={formData.username} className="border-red-500/50 text-red-400 bg-red-950/10 cursor-not-allowed" />
+                  <label className="text-sm font-medium">Username <span className="text-red-500 font-semibold">(Don't change)</span></label>
+                  <Input required value={formData.username} onChange={e => setFormData({ ...formData, username: e.target.value })} />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-red-400">Password (Do Not Change)</label>
-                  <Input required readOnly type="password" value={formData.password} className="border-red-500/50 text-red-400 bg-red-950/10 cursor-not-allowed" />
+                  <label className="text-sm font-medium">Password <span className="text-red-500 font-semibold">(Don't change)</span></label>
+                  <Input required type="password" value={formData.password} onChange={e => setFormData({ ...formData, password: e.target.value })} />
                 </div>
               </div>
 
