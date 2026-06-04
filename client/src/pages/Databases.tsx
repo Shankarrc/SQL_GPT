@@ -1157,11 +1157,10 @@ export default function Databases() {
 
             <div className="mt-5 space-y-4">
               <div className="text-[13px] text-muted-foreground leading-relaxed">
-                Type <span className={`font-mono font-bold select-all px-1.5 py-0.5 rounded border ${
-                  theme === 'dark' 
-                    ? 'text-primary-foreground bg-primary/20 border-primary/30' 
+                Type <span className={`font-mono font-bold select-all px-1.5 py-0.5 rounded border ${theme === 'dark'
+                    ? 'text-primary-foreground bg-primary/20 border-primary/30'
                     : 'text-primary bg-primary/10 border-primary/20'
-                }`}>"{connNameToVerify}"</span> to delete the database connection
+                  }`}>"{connNameToVerify}"</span> to delete the database connection
               </div>
               <input
                 type="text"
@@ -1174,11 +1173,10 @@ export default function Databases() {
               />
 
               {/* Safe check warning about empty databases */}
-              <div className={`text-[11px] font-medium rounded-lg p-2.5 flex items-start space-x-1.5 leading-normal ${
-                theme === 'dark' 
-                  ? 'text-red-400 bg-red-950/20 border border-red-500/20' 
+              <div className={`text-[11px] font-medium rounded-lg p-2.5 flex items-start space-x-1.5 leading-normal ${theme === 'dark'
+                  ? 'text-red-400 bg-red-950/20 border border-red-500/20'
                   : 'text-red-600 bg-red-50 border border-red-200'
-              }`}>
+                }`}>
                 <Info size={13} className="shrink-0 mt-0.5" />
                 <span>Only empty databases with zero tables are allowed to be deleted. Populate validation will run upon submission.</span>
               </div>
@@ -1202,8 +1200,8 @@ export default function Databases() {
                   disabled={connDeleteLoading || connDeleteConfirmInput !== connNameToVerify}
                   onClick={handleConfirmDeleteConnection}
                   className={`font-semibold text-xs px-4 py-2.5 rounded-lg transition-all focus:outline-none shadow-sm flex items-center space-x-1.5 ${connDeleteConfirmInput === connNameToVerify
-                      ? 'bg-red-600 hover:bg-red-500 active:bg-red-700 text-white focus:ring-4 focus:ring-red-500/20'
-                      : `${theme === 'dark' ? 'bg-[#181125]' : 'bg-muted'} text-muted-foreground/30 border border-border/30 cursor-not-allowed`
+                    ? 'bg-red-600 hover:bg-red-500 active:bg-red-700 text-white focus:ring-4 focus:ring-red-500/20'
+                    : `${theme === 'dark' ? 'bg-[#181125]' : 'bg-muted'} text-muted-foreground/30 border border-border/30 cursor-not-allowed`
                     }`}
                 >
                   {connDeleteLoading ? (
@@ -1247,11 +1245,10 @@ export default function Databases() {
 
             <div className="mt-5 space-y-4">
               <div className="text-[13px] text-muted-foreground leading-relaxed">
-                Type <span className={`font-mono font-bold select-all px-1.5 py-0.5 rounded border ${
-                  theme === 'dark' 
-                    ? 'text-primary-foreground bg-primary/20 border-primary/30' 
+                Type <span className={`font-mono font-bold select-all px-1.5 py-0.5 rounded border ${theme === 'dark'
+                    ? 'text-primary-foreground bg-primary/20 border-primary/30'
                     : 'text-primary bg-primary/10 border-primary/20'
-                }`}>"{tableToDrop}"</span> to drop the table
+                  }`}>"{tableToDrop}"</span> to drop the table
               </div>
               <input
                 type="text"
@@ -1282,8 +1279,8 @@ export default function Databases() {
                   disabled={tableDropLoading || tableDropConfirmInput !== tableToDrop}
                   onClick={handleConfirmDeleteTable}
                   className={`font-semibold text-xs px-4 py-2.5 rounded-lg transition-all focus:outline-none shadow-sm flex items-center space-x-1.5 ${tableDropConfirmInput === tableToDrop
-                      ? 'bg-red-600 hover:bg-red-500 active:bg-red-700 text-white focus:ring-4 focus:ring-red-500/20'
-                      : `${theme === 'dark' ? 'bg-[#181125]' : 'bg-muted'} text-muted-foreground/30 border border-border/30 cursor-not-allowed`
+                    ? 'bg-red-600 hover:bg-red-500 active:bg-red-700 text-white focus:ring-4 focus:ring-red-500/20'
+                    : `${theme === 'dark' ? 'bg-[#181125]' : 'bg-muted'} text-muted-foreground/30 border border-border/30 cursor-not-allowed`
                     }`}
                 >
                   {tableDropLoading ? (

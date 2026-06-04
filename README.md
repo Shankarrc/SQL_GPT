@@ -11,41 +11,34 @@ A full-stack MERN application to connect to external databases, generate SQL que
 ## Setup
 
 ### Prerequisites
-- Docker & Docker Compose (Recommended)
-- Node.js (if running locally)
-- MongoDB instance (if running locally without Docker)
+- Node.js (v18+)
+- Java SDK 17+ and Maven
+- MongoDB instance (running locally on `mongodb://localhost:27017/sqlgpt`)
 
 ### Environment Variables
-Rename `.env.example` to `.env` and fill in your values, especially your `OPENAI_API_KEY`. The `ENCRYPTION_KEY` must be exactly 32 characters long.
+Rename `.env.example` to `.env` and fill in your values. The `ENCRYPTION_KEY` must be exactly 32 characters long.
 
-### Run with Docker Compose (Recommended)
-\`\`\`bash
-docker-compose up --build
-\`\`\`
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:5000
+### Run Locally
 
-### Run Locally (Without Docker)
-
-**Backend:**
-\`\`\`bash
-cd server
-npm install
-npm run build
-npm start
-# Or for dev: npm run dev
-\`\`\`
+**Backend (Java Spring Boot):**
+```bash
+cd server-java
+mvn spring-boot:run
+```
 
 **Frontend:**
-\`\`\`bash
+```bash
 cd client
 npm install
 npm run dev
-\`\`\`
+```
+
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:5000
 
 ## Architecture
-- **Client**: React (Vite), Tailwind CSS v3, ShadCN UI, Monaco Editor, Zustand.
-- **Server**: Node.js, Express, TypeScript, Mongoose.
+- **Client**: React (Vite), Tailwind CSS v3, Radix UI, Monaco Editor, Zustand.
+- **Server**: Java Spring Boot, MongoDB (Spring Data MongoDB), Spring Security, JDBC.
 
 ## License
 MIT
