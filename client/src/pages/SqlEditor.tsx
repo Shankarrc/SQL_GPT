@@ -340,7 +340,7 @@ const SqlEditor = () => {
                                   Make sure you have created an API key and check your project billing or free tier limits in Google Cloud/AI Studio.
                                 </li>
                                 <li>
-                                  Open <code className="bg-black/30 px-1 py-0.5 rounded font-mono text-[10px] text-red-400">server/.env</code> and add or replace the <code className="bg-black/30 px-1 py-0.5 rounded font-mono text-[10px] text-red-400">GEMINI_API_KEY</code>.
+                                  Open <code className="bg-black/30 px-1 py-0.5 rounded font-mono text-[10px] text-red-400">.env</code> in the project root folder and add or replace the <code className="bg-black/30 px-1 py-0.5 rounded font-mono text-[10px] text-red-400">GEMINI_API_KEY</code>.
                                 </li>
                                 <li>
                                   Restart your backend development server to apply the new environment variables.
