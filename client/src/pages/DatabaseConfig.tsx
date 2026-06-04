@@ -13,13 +13,13 @@ const DatabaseConfig = () => {
   const { activeConnection, setActiveConnection } = useDbStore();
 
   const [formData, setFormData] = useState({
-    name: '',
-    type: 'mysql',
-    host: 'localhost',
-    port: '3306',
-    username: 'root',
-    password: '',
-    database: '',
+    name: import.meta.env.VITE_DEFAULT_DB_NAME || 'Aiven MySQL',
+    type: import.meta.env.VITE_DEFAULT_DB_TYPE || 'mysql',
+    host: import.meta.env.VITE_DEFAULT_DB_HOST || 'localhost',
+    port: import.meta.env.VITE_DEFAULT_DB_PORT || '3306',
+    username: import.meta.env.VITE_DEFAULT_DB_USER || 'root',
+    password: import.meta.env.VITE_DEFAULT_DB_PASSWORD || '',
+    database: import.meta.env.VITE_DEFAULT_DB_DATABASE || '',
     createIfNotExists: false
   });
 
