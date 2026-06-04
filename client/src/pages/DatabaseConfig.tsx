@@ -13,13 +13,13 @@ const DatabaseConfig = () => {
   const { activeConnection, setActiveConnection } = useDbStore();
 
   const [formData, setFormData] = useState({
-    name: 'Aiven MySQL',
+    name: '',
     type: 'mysql',
     host: window.atob('bXlzcWwtMTVjYzRjYzMtc2hhbmthcjc3NTA3MzktNGVhOS5pLmFpdmVuY2xvdWQuY29t'),
     port: '25249',
     username: 'avnadmin',
     password: window.atob('QVZOU19TNWJYampDMGZIaDJ4UDExRzd2'),
-    database: 'defaultdb',
+    database: '',
     createIfNotExists: false
   });
 
