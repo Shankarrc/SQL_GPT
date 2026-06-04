@@ -186,10 +186,10 @@ const Dashboard = () => {
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-semibold flex items-center gap-2">
-                    <Server className="w-5 h-5 text-primary" /> Step 1: Verify Local Database Service
+                    <Server className="w-5 h-5 text-primary" /> Step 1: Verify Database Service
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">
-                    Ensure that your database service is running locally on your computer and open to local connections.
+                    Ensure that your database service is active and open to connections.
                   </p>
                 </div>
 
@@ -208,7 +208,7 @@ const Dashboard = () => {
 
                   <div className="space-y-3">
                     <h4 className="text-sm font-semibold text-foreground">Service Status Commands</h4>
-                    <p className="text-xs text-muted-foreground">Check or start your local service using terminal:</p>
+                    <p className="text-xs text-muted-foreground">Check or start your database service using terminal:</p>
 
                     <div className="space-y-3">
                       <div className="space-y-1">
@@ -293,7 +293,7 @@ const Dashboard = () => {
                     <div className="grid grid-cols-2 gap-3 text-xs">
                       <div>
                         <span className="text-muted-foreground block mb-1">Connection Name</span>
-                        <div className="bg-background border p-2 rounded font-mono text-foreground">MySQL</div>
+                        <div className="bg-background border p-2 rounded font-mono text-foreground">MySQL_Connector</div>
                       </div>
                       <div>
                         <span className="text-muted-foreground block mb-1">Type</span>
@@ -475,7 +475,7 @@ const Dashboard = () => {
             >
               <span className="flex items-center gap-2 text-sm">
                 <HelpCircle className="w-5 h-5 text-muted-foreground" />
-                Stuck? View Troubleshooting & FAQ for Localhost Connections
+                Stuck? View Troubleshooting & FAQ for Connections
               </span>
               <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${openTroubleshooting ? 'transform rotate-180' : ''}`} />
             </button>
@@ -502,7 +502,7 @@ const Dashboard = () => {
                     <strong>Cause:</strong> The credentials (username or password) supplied are incorrect or lack access rights.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    <strong>Fix:</strong> Confirm that you can sign into your database locally via command line or terminal. Verify you typed the username/password exactly without typo.
+                    <strong>Fix:</strong> Confirm that you can sign into your database via command line or terminal. Verify you typed the username/password exactly without typo.
                   </p>
                 </div>
 
@@ -511,7 +511,7 @@ const Dashboard = () => {
                     <AlertCircle className="w-4 h-4 text-red-500 shrink-0" /> Unknown Database
                   </h4>
                   <p className="text-muted-foreground leading-relaxed">
-                    <strong>Cause:</strong> The database name specified does not exist on your local SQL host.
+                    <strong>Cause:</strong> The database name specified does not exist on your SQL host.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
                     <strong>Fix:</strong> Tick the <em>"Create database if it does not exist"</em> checkbox in the connection form. The server will run the create script on your behalf.
