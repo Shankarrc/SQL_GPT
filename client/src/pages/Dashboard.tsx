@@ -296,17 +296,17 @@ const Dashboard = () => {
                         <span className="text-muted-foreground block mb-1">Type</span>
                         <div className="bg-background border p-2 rounded font-mono text-foreground capitalize">mysql</div>
                       </div>
-                      <div className="col-span-2 border-2 border-primary/80 rounded-lg p-2.5 bg-primary/5">
-                        <span className="text-primary font-semibold block mb-0.5 text-[11px]">Host (Crucial Step)</span>
-                        <div className="font-mono text-foreground text-xs break-all font-bold">mysql-15cc4cc3-shankar7750739-4ea9.i.aivencloud.com</div>
+                      <div className="col-span-2 border-2 border-red-500/80 rounded-lg p-2.5 bg-red-950/10">
+                        <span className="text-red-400 font-semibold block mb-0.5 text-[11px]">Host (Do Not Change)</span>
+                        <div className="font-mono text-red-200 text-xs break-all font-bold">mysql-15cc4cc3-shankar7750739-4ea9.i.aivencloud.com</div>
                       </div>
                       <div>
-                        <span className="text-muted-foreground block mb-1">Port</span>
-                        <div className="bg-background border p-2 rounded font-mono text-foreground">25249</div>
+                        <span className="text-red-400 block mb-1">Port</span>
+                        <div className="bg-red-950/10 border border-red-500/50 p-2 rounded font-mono text-red-200">25249</div>
                       </div>
                       <div>
-                        <span className="text-muted-foreground block mb-1">Username</span>
-                        <div className="bg-background border p-2 rounded font-mono text-foreground">avnadmin</div>
+                        <span className="text-red-400 block mb-1">Username</span>
+                        <div className="bg-red-950/10 border border-red-500/50 p-2 rounded font-mono text-red-200">avnadmin</div>
                       </div>
                       <div className="col-span-2">
                         <span className="text-muted-foreground block mb-1">Database Name</span>
