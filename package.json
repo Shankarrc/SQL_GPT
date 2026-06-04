@@ -3,6 +3,6 @@
   "private": true,
   "scripts": {
     "postinstall": "npm install --prefix client",
-    "build": "npm run build --prefix client"
+    "build": "npm run build --prefix client && node -e \"const fs = require('fs'); fs.cpSync('client/dist', 'dist', { recursive: true });\""
   }
 }
