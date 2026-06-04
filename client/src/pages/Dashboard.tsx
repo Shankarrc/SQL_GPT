@@ -352,7 +352,7 @@ const Dashboard = () => {
                     <div className="grid grid-cols-2 gap-3 text-xs">
                       <div>
                         <span className="text-muted-foreground block mb-1">Connection Name</span>
-                        <div className="bg-background border p-2 rounded font-mono text-foreground">Local_DB</div>
+                        <div className="bg-background border p-2 rounded font-mono text-foreground">Aiven MySQL</div>
                       </div>
                       <div>
                         <span className="text-muted-foreground block mb-1">Type</span>
@@ -372,7 +372,7 @@ const Dashboard = () => {
                       </div>
                       <div className="col-span-2">
                         <span className="text-muted-foreground block mb-1">Database Name</span>
-                        <div className="bg-background border p-2 rounded font-mono text-foreground italic">my_local_db</div>
+                        <div className="bg-background border p-2 rounded font-mono text-foreground italic">defaultdb</div>
                       </div>
                     </div>
                   </div>
@@ -420,7 +420,7 @@ const Dashboard = () => {
                           <Database size={20} />
                         </div>
                         <div>
-                          <h4 className="font-semibold text-sm">Local_DB</h4>
+                          <h4 className="font-semibold text-sm">Aiven MySQL</h4>
                           <p className="text-[10px] text-muted-foreground uppercase">{selectedDb} • localhost:{selectedDb === 'mysql' ? '3306' : '5432'}</p>
                         </div>
                       </div>
