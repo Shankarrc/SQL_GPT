@@ -30,7 +30,6 @@ const Dashboard = () => {
 
   // Interactive wizard states
   const [currentStep, setCurrentStep] = useState(1);
-  const [selectedDb, setSelectedDb] = useState<'mysql' | 'postgres'>('mysql');
   const [copiedText, setCopiedText] = useState<string | null>(null);
   const [openTroubleshooting, setOpenTroubleshooting] = useState(false);
 
@@ -194,27 +193,6 @@ const Dashboard = () => {
                   </p>
                 </div>
 
-                <div className="flex gap-2 border-b border-border/40 pb-px">
-                  <button
-                    onClick={() => setSelectedDb('mysql')}
-                    className={`px-4 py-2 text-sm font-semibold border-b-2 transition-all ${selectedDb === 'mysql'
-                        ? 'border-primary text-primary'
-                        : 'border-transparent text-muted-foreground hover:text-foreground'
-                      }`}
-                  >
-                    MySQL
-                  </button>
-                  <button
-                    onClick={() => setSelectedDb('postgres')}
-                    className={`px-4 py-2 text-sm font-semibold border-b-2 transition-all ${selectedDb === 'postgres'
-                        ? 'border-primary text-primary'
-                        : 'border-transparent text-muted-foreground hover:text-foreground'
-                      }`}
-                  >
-                    PostgreSQL
-                  </button>
-                </div>
-
                 <div className="grid gap-6 md:grid-cols-2">
                   <div className="space-y-3">
                     <h4 className="text-sm font-semibold text-foreground">Aiven Cloud Configuration</h4>
@@ -230,67 +208,33 @@ const Dashboard = () => {
                     <p className="text-xs text-muted-foreground">Check or start your local service using terminal:</p>
 
                     <div className="space-y-3">
-                      {selectedDb === 'mysql' ? (
-                        <>
-                          <div className="space-y-1">
-                            <div className="text-[10px] text-muted-foreground uppercase font-mono">Windows (PowerShell)</div>
-                            <div className="flex items-center justify-between bg-background border p-2.5 rounded-lg text-xs font-mono">
-                              <span className="truncate">Get-Service -Name MySQL*</span>
-                              <button
-                                onClick={() => handleCopy('Get-Service -Name MySQL*', 'win-mysql')}
-                                className="p-1 hover:bg-secondary rounded text-muted-foreground hover:text-foreground"
-                                title="Copy command"
-                              >
-                                {copiedText === 'win-mysql' ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
-                              </button>
-                            </div>
-                          </div>
+                      <div className="space-y-1">
+                        <div className="text-[10px] text-muted-foreground uppercase font-mono">Windows (PowerShell)</div>
+                        <div className="flex items-center justify-between bg-background border p-2.5 rounded-lg text-xs font-mono">
+                          <span className="truncate">Get-Service -Name MySQL*</span>
+                          <button
+                            onClick={() => handleCopy('Get-Service -Name MySQL*', 'win-mysql')}
+                            className="p-1 hover:bg-secondary rounded text-muted-foreground hover:text-foreground"
+                            title="Copy command"
+                          >
+                            {copiedText === 'win-mysql' ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                          </button>
+                        </div>
+                      </div>
 
-                          <div className="space-y-1">
-                            <div className="text-[10px] text-muted-foreground uppercase font-mono">macOS (Homebrew)</div>
-                            <div className="flex items-center justify-between bg-background border p-2.5 rounded-lg text-xs font-mono">
-                              <span className="truncate">brew services status mysql</span>
-                              <button
-                                onClick={() => handleCopy('brew services status mysql', 'mac-mysql')}
-                                className="p-1 hover:bg-secondary rounded text-muted-foreground hover:text-foreground"
-                                title="Copy command"
-                              >
-                                {copiedText === 'mac-mysql' ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
-                              </button>
-                            </div>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <div className="space-y-1">
-                            <div className="text-[10px] text-muted-foreground uppercase font-mono">Windows (PowerShell)</div>
-                            <div className="flex items-center justify-between bg-background border p-2.5 rounded-lg text-xs font-mono">
-                              <span className="truncate">Get-Service -Name postgresql*</span>
-                              <button
-                                onClick={() => handleCopy('Get-Service -Name postgresql*', 'win-pg')}
-                                className="p-1 hover:bg-secondary rounded text-muted-foreground hover:text-foreground"
-                                title="Copy command"
-                              >
-                                {copiedText === 'win-pg' ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
-                              </button>
-                            </div>
-                          </div>
-
-                          <div className="space-y-1">
-                            <div className="text-[10px] text-muted-foreground uppercase font-mono">macOS (Homebrew)</div>
-                            <div className="flex items-center justify-between bg-background border p-2.5 rounded-lg text-xs font-mono">
-                              <span className="truncate">brew services status postgresql</span>
-                              <button
-                                onClick={() => handleCopy('brew services status postgresql', 'mac-pg')}
-                                className="p-1 hover:bg-secondary rounded text-muted-foreground hover:text-foreground"
-                                title="Copy command"
-                              >
-                                {copiedText === 'mac-pg' ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
-                              </button>
-                            </div>
-                          </div>
-                        </>
-                      )}
+                      <div className="space-y-1">
+                        <div className="text-[10px] text-muted-foreground uppercase font-mono">macOS (Homebrew)</div>
+                        <div className="flex items-center justify-between bg-background border p-2.5 rounded-lg text-xs font-mono">
+                          <span className="truncate">brew services status mysql</span>
+                          <button
+                            onClick={() => handleCopy('brew services status mysql', 'mac-mysql')}
+                            className="p-1 hover:bg-secondary rounded text-muted-foreground hover:text-foreground"
+                            title="Copy command"
+                          >
+                            {copiedText === 'mac-mysql' ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -346,11 +290,11 @@ const Dashboard = () => {
                     <div className="grid grid-cols-2 gap-3 text-xs">
                       <div>
                         <span className="text-muted-foreground block mb-1">Connection Name</span>
-                        <div className="bg-background border p-2 rounded font-mono text-foreground">Aiven MySQL</div>
+                        <div className="bg-background border p-2 rounded font-mono text-foreground">MySQL</div>
                       </div>
                       <div>
                         <span className="text-muted-foreground block mb-1">Type</span>
-                        <div className="bg-background border p-2 rounded font-mono text-foreground capitalize">{selectedDb}</div>
+                        <div className="bg-background border p-2 rounded font-mono text-foreground capitalize">mysql</div>
                       </div>
                       <div className="col-span-2 border-2 border-primary/80 rounded-lg p-2.5 bg-primary/5">
                         <span className="text-primary font-semibold block mb-0.5 text-[11px]">Host (Crucial Step)</span>
@@ -543,7 +487,7 @@ const Dashboard = () => {
                     <strong>Cause:</strong> Your database server is not running, or it's listening on a custom port instead of the default.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    <strong>Fix:</strong> Execute the status command in Step 1 to verify execution. Ensure the port value on the connection configuration form is correct (MySQL: 3306, PostgreSQL: 5432).
+                    <strong>Fix:</strong> Execute the status command in Step 1 to verify execution. Ensure the port value on the connection configuration form is correct (MySQL: 3306).
                   </p>
                 </div>
 

@@ -14,8 +14,6 @@ public class DatabaseExecutorService {
             // environments
             return String.format("jdbc:mysql://%s:%d/%s?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
                     host, port, database);
-        } else if ("postgres".equalsIgnoreCase(type)) {
-            return String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
         }
         throw new IllegalArgumentException("Unsupported database type: " + type);
     }
@@ -24,8 +22,6 @@ public class DatabaseExecutorService {
         if ("mysql".equalsIgnoreCase(type)) {
             return String.format("jdbc:mysql://%s:%d/?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
                     host, port);
-        } else if ("postgres".equalsIgnoreCase(type)) {
-            return String.format("jdbc:postgresql://%s:%d/postgres", host, port);
         }
         throw new IllegalArgumentException("Unsupported database type: " + type);
     }
@@ -37,7 +33,7 @@ public class DatabaseExecutorService {
             if ("mysql".equalsIgnoreCase(type)) {
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } else {
-                Class.forName("org.postgresql.Driver");
+                throw new SQLException("Unsupported database type: " + type);
             }
         } catch (ClassNotFoundException e) {
             throw new SQLException("Database driver not found", e);
@@ -49,21 +45,6 @@ public class DatabaseExecutorService {
                     Statement stmt = conn.createStatement()) {
                 if ("mysql".equalsIgnoreCase(type)) {
                     stmt.executeUpdate(String.format("CREATE DATABASE IF NOT EXISTS `%s`", database));
-                } else if ("postgres".equalsIgnoreCase(type)) {
-                    // Postgres doesn't support CREATE DATABASE IF NOT EXISTS, so check manually
-                    boolean dbExists = false;
-                    try (PreparedStatement pstmt = conn
-                            .prepareStatement("SELECT 1 FROM pg_database WHERE datname = ?")) {
-                        pstmt.setString(1, database);
-                        try (ResultSet rs = pstmt.executeQuery()) {
-                            if (rs.next()) {
-                                dbExists = true;
-                            }
-                        }
-                    }
-                    if (!dbExists) {
-                        stmt.executeUpdate(String.format("CREATE DATABASE \"%s\"", database));
-                    }
                 }
             }
         }
@@ -87,15 +68,6 @@ public class DatabaseExecutorService {
                         tables.add(rs.getString(1));
                     }
                 }
-            } else if ("postgres".equalsIgnoreCase(dbConn.getType())) {
-                try (PreparedStatement pstmt = conn.prepareStatement(
-                        "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")) {
-                    try (ResultSet rs = pstmt.executeQuery()) {
-                        while (rs.next()) {
-                            tables.add(rs.getString("table_name"));
-                        }
-                    }
-                }
             }
         }
         return tables;
@@ -117,19 +89,6 @@ public class DatabaseExecutorService {
                         col.put("name", rs.getString("COLUMN_NAME"));
                         col.put("type", rs.getString("TYPE_NAME"));
                         columns.add(col);
-                    }
-                }
-            } else if ("postgres".equalsIgnoreCase(dbConn.getType())) {
-                try (PreparedStatement pstmt = conn.prepareStatement(
-                        "SELECT column_name, data_type FROM information_schema.columns WHERE table_name = ?")) {
-                    pstmt.setString(1, tableName);
-                    try (ResultSet rs = pstmt.executeQuery()) {
-                        while (rs.next()) {
-                            Map<String, Object> col = new HashMap<>();
-                            col.put("name", rs.getString("column_name"));
-                            col.put("type", rs.getString("data_type"));
-                            columns.add(col);
-                        }
                     }
                 }
             }

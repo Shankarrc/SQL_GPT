@@ -43,8 +43,8 @@ public class DatabaseController {
             String database = (String) request.get("database");
             boolean createIfNotExists = request.containsKey("createIfNotExists") && (boolean) request.get("createIfNotExists");
 
-            if (type == null || (!"mysql".equalsIgnoreCase(type) && !"postgres".equalsIgnoreCase(type))) {
-                return ResponseEntity.badRequest().body(Map.of("message", "Unsupported database type"));
+            if (type == null || !"mysql".equalsIgnoreCase(type)) {
+                return ResponseEntity.badRequest().body(Map.of("message", "Unsupported database type. Only MySQL is supported."));
             }
 
             // Test connection and create database if requested

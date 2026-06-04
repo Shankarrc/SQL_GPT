@@ -64,7 +64,7 @@ const DatabaseConfig = () => {
         <Card>
           <CardHeader>
             <CardTitle>Add Connection</CardTitle>
-            <CardDescription>Connect to a new MySQL or PostgreSQL database.</CardDescription>
+            <CardDescription>Connect to a new MySQL database.</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleConnect} className="space-y-4">
@@ -75,17 +75,7 @@ const DatabaseConfig = () => {
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Type</label>
-                  <select
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
-                    value={formData.type}
-                    onChange={e => {
-                      const type = e.target.value;
-                      setFormData({ ...formData, type, port: type === 'mysql' ? '3306' : '5432' })
-                    }}
-                  >
-                    <option value="mysql">MySQL</option>
-                    <option value="postgres">PostgreSQL</option>
-                  </select>
+                  <Input required disabled value="MySQL" className="bg-muted text-muted-foreground cursor-not-allowed" />
                 </div>
               </div>
 
@@ -153,7 +143,7 @@ const DatabaseConfig = () => {
                   onClick={() => setActiveConnection(conn)}
                 >
                   <div className="flex items-center space-x-4">
-                    <div className={`p-2 rounded-full ${conn.type === 'mysql' ? 'bg-orange-500/10 text-orange-500' : 'bg-blue-500/10 text-blue-500'}`}>
+                    <div className="p-2 rounded-full bg-orange-500/10 text-orange-500">
                       <Database size={24} />
                     </div>
                     <div>

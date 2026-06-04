@@ -16,7 +16,7 @@ public class DatabaseConnection {
     @Field(targetType = FieldType.OBJECT_ID)
     private String userId;
     private String name;
-    private String type; // mysql, postgres
+    private String type; // mysql
     private String host;
     private int port;
     private String username;

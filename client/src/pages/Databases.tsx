@@ -202,11 +202,9 @@ export default function Databases() {
     }
 
     setTableDropLoading(true);
-    const targetConn = connections.find(c => c._id === connIdForTableDrop);
-    const isMysql = targetConn?.type === 'mysql';
 
     try {
-      const sqlQuery = `DROP TABLE ${escapeId(tableToDrop, isMysql)}`;
+      const sqlQuery = `DROP TABLE ${escapeId(tableToDrop)}`;
       await api.post('/sql/execute', {
         connectionId: connIdForTableDrop,
         sql: sqlQuery,
@@ -298,11 +296,8 @@ export default function Databases() {
       setColumns(colsRes.data);
 
       // 2. Fetch rows via SQL execute
-      const activeConnectionMetadata = connections.find(c => c._id === connId);
-      const isMysql = activeConnectionMetadata?.type === 'mysql';
-
-      // Escape table identifiers properly based on type
-      const escapedTable = isMysql ? `\`${tableName}\`` : `"${tableName}"`;
+      // Escape table identifiers properly based on MySQL
+      const escapedTable = `\`${tableName}\``;
 
       const sqlQuery = `SELECT * FROM ${escapedTable} LIMIT 100`;
 
@@ -321,9 +316,9 @@ export default function Databases() {
     }
   };
 
-  // Quoting utility based on MySQL or Postgres
-  const escapeId = (identifier: string, isMysql: boolean) => {
-    return isMysql ? `\`${identifier}\`` : `"${identifier}"`;
+  // Quoting utility based on MySQL
+  const escapeId = (identifier: string) => {
+    return `\`${identifier}\``;
   };
 
   // Real SQL Database CRUD operations
@@ -379,43 +374,19 @@ export default function Databases() {
       return;
     }
 
-    const targetConn = connections.find(c => c._id === activeConnForCol);
-    const isMysql = targetConn?.type === 'mysql';
+    // Compile dynamic SQL Query based on MySQL
+    const escapedTable = `\`${cleanTableName}\``;
 
-    // Compile dynamic SQL Query based on active connection type (MySQL vs PostgreSQL)
-    let sqlQuery = '';
-    const escapedTable = isMysql ? `\`${cleanTableName}\`` : `"${cleanTableName}"`;
-
-    if (isMysql) {
-      const colDefinitions = builderColumns.map(col => {
-        const escapedCol = `\`${col.name.trim()}\``;
-        const nullClause = col.isNullable ? '' : 'NOT NULL';
-        const pkClause = col.isPk ? 'PRIMARY KEY' : '';
-        const uniqueClause = col.isUnique ? 'UNIQUE' : '';
-        const aiClause = col.isAi ? 'AUTO_INCREMENT' : '';
-        const defaultClause = col.defaultValue.trim() ? `DEFAULT ${col.defaultValue.trim()}` : '';
-        return `${escapedCol} ${col.type} ${nullClause} ${pkClause} ${uniqueClause} ${aiClause} ${defaultClause}`.trim().replace(/\s+/g, ' ');
-      });
-      sqlQuery = `CREATE TABLE ${escapedTable} (\n  ${colDefinitions.join(',\n  ')}\n)`;
-    } else {
-      const colDefinitions = builderColumns.map(col => {
-        const escapedCol = `"${col.name.trim()}"`;
-        let typeDef = col.type;
-        if (col.isAi) {
-          if (typeDef.toUpperCase() === 'BIGINT') {
-            typeDef = 'BIGSERIAL';
-          } else {
-            typeDef = 'SERIAL';
-          }
-        }
-        const nullClause = col.isNullable ? '' : 'NOT NULL';
-        const pkClause = col.isPk ? 'PRIMARY KEY' : '';
-        const uniqueClause = col.isUnique ? 'UNIQUE' : '';
-        const defaultClause = col.defaultValue.trim() ? `DEFAULT ${col.defaultValue.trim()}` : '';
-        return `${escapedCol} ${typeDef} ${nullClause} ${pkClause} ${uniqueClause} ${defaultClause}`.trim().replace(/\s+/g, ' ');
-      });
-      sqlQuery = `CREATE TABLE ${escapedTable} (\n  ${colDefinitions.join(',\n  ')}\n)`;
-    }
+    const colDefinitions = builderColumns.map(col => {
+      const escapedCol = `\`${col.name.trim()}\``;
+      const nullClause = col.isNullable ? '' : 'NOT NULL';
+      const pkClause = col.isPk ? 'PRIMARY KEY' : '';
+      const uniqueClause = col.isUnique ? 'UNIQUE' : '';
+      const aiClause = col.isAi ? 'AUTO_INCREMENT' : '';
+      const defaultClause = col.defaultValue.trim() ? `DEFAULT ${col.defaultValue.trim()}` : '';
+      return `${escapedCol} ${col.type} ${nullClause} ${pkClause} ${uniqueClause} ${aiClause} ${defaultClause}`.trim().replace(/\s+/g, ' ');
+    });
+    const sqlQuery = `CREATE TABLE ${escapedTable} (\n  ${colDefinitions.join(',\n  ')}\n)`;
 
     setCreateColLoading(true);
     try {
@@ -497,7 +468,6 @@ export default function Databases() {
     e.preventDefault();
     if (!activeConnId || !activeTableName) return;
 
-    const isMysql = activeConn?.type === 'mysql';
     setSavingRecord(true);
     setRecordError('');
 
@@ -507,7 +477,7 @@ export default function Databases() {
         const activeFields = recordFields.filter(f => f.value.trim() !== '');
 
         // Escape standard columns and format strings properly
-        const keysClause = activeFields.map(f => escapeId(f.key, isMysql)).join(', ');
+        const keysClause = activeFields.map(f => escapeId(f.key)).join(', ');
         const valsClause = activeFields.map(f => `'${f.value.replace(/'/g, "''")}'`).join(', ');
 
         if (activeFields.length === 0) {
@@ -516,7 +486,7 @@ export default function Databases() {
           return;
         }
 
-        const sqlQuery = `INSERT INTO ${escapeId(activeTableName, isMysql)} (${keysClause}) VALUES (${valsClause})`;
+        const sqlQuery = `INSERT INTO ${escapeId(activeTableName)} (${keysClause}) VALUES (${valsClause})`;
         await api.post('/sql/execute', {
           connectionId: activeConnId,
           sql: sqlQuery,
@@ -529,7 +499,7 @@ export default function Databases() {
 
         const setClause = updateFields.map(f => {
           const val = f.value === '' ? 'NULL' : `'${f.value.replace(/'/g, "''")}'`;
-          return `${escapeId(f.key, isMysql)} = ${val}`;
+          return `${escapeId(f.key)} = ${val}`;
         }).join(', ');
 
         if (updateFields.length === 0) {
@@ -538,7 +508,7 @@ export default function Databases() {
           return;
         }
 
-        const sqlQuery = `UPDATE ${escapeId(activeTableName, isMysql)} SET ${setClause} WHERE ${escapeId(primaryKey, isMysql)} = '${String(pkValue).replace(/'/g, "''")}'`;
+        const sqlQuery = `UPDATE ${escapeId(activeTableName)} SET ${setClause} WHERE ${escapeId(primaryKey)} = '${String(pkValue).replace(/'/g, "''")}'`;
         await api.post('/sql/execute', {
           connectionId: activeConnId,
           sql: sqlQuery,
@@ -562,10 +532,9 @@ export default function Databases() {
   const handleDeleteRecord = async (idValue: any) => {
     if (!activeConnId || !activeTableName) return;
     if (window.confirm(`Are you sure you want to DELETE record where "${primaryKey}" = "${idValue}"?`)) {
-      const isMysql = activeConn?.type === 'mysql';
 
       try {
-        const sqlQuery = `DELETE FROM ${escapeId(activeTableName, isMysql)} WHERE ${escapeId(primaryKey, isMysql)} = '${String(idValue).replace(/'/g, "''")}'`;
+        const sqlQuery = `DELETE FROM ${escapeId(activeTableName)} WHERE ${escapeId(primaryKey)} = '${String(idValue).replace(/'/g, "''")}'`;
         await api.post('/sql/execute', {
           connectionId: activeConnId,
           sql: sqlQuery,
@@ -981,7 +950,7 @@ export default function Databases() {
               {/* Header Title */}
               <h2 className="text-xl font-bold text-foreground">Database Manager</h2>
               <p className="text-muted-foreground text-sm mt-2 leading-relaxed font-normal">
-                Welcome to your Postgres & MySQL database explorer. Choose a connection and select a table from the sidebar to inspect records and perform dynamic SQL-backed CRUD operations.
+                Welcome to your MySQL database explorer. Choose a connection and select a table from the sidebar to inspect records and perform dynamic SQL-backed CRUD operations.
               </p>
 
               {/* Server Details summary */}
@@ -1002,7 +971,7 @@ export default function Databases() {
               <div className="text-left space-y-2.5 text-xs text-muted-foreground pt-1">
                 <div className="flex items-start space-x-2.5">
                   <span className="text-emerald-500 select-none font-bold">✔</span>
-                  <span><strong>Live SQL Execution</strong>: Rows are edited directly inside your local or cloud Postgres/MySQL databases.</span>
+                  <span><strong>Live SQL Execution</strong>: Rows are edited directly inside your local or cloud MySQL databases.</span>
                 </div>
                 <div className="flex items-start space-x-2.5">
                   <span className="text-emerald-500 select-none font-bold">✔</span>
