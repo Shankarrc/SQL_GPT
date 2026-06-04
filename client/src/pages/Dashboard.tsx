@@ -217,11 +217,11 @@ const Dashboard = () => {
 
                 <div className="grid gap-6 md:grid-cols-2">
                   <div className="space-y-3">
-                    <h4 className="text-sm font-semibold text-foreground">Standard Local Configuration</h4>
+                    <h4 className="text-sm font-semibold text-foreground">Aiven Cloud Configuration</h4>
                     <div className="bg-secondary/40 p-4 rounded-lg border text-sm space-y-2 font-mono">
-                      <div><span className="text-muted-foreground">Default Host:</span> localhost (or 127.0.0.1)</div>
-                      <div><span className="text-muted-foreground">Default Port:</span> {selectedDb === 'mysql' ? '3306' : '5432'}</div>
-                      <div><span className="text-muted-foreground">Default Username:</span> {selectedDb === 'mysql' ? 'root' : 'postgres'}</div>
+                      <div><span className="text-muted-foreground">Host:</span> mysql-15cc4cc3-shankar7750739-4ea9.i.aivencloud.com</div>
+                      <div><span className="text-muted-foreground">Port:</span> 25249</div>
+                      <div><span className="text-muted-foreground">Username:</span> avnadmin</div>
                     </div>
                   </div>
 
@@ -354,15 +354,15 @@ const Dashboard = () => {
                       </div>
                       <div className="col-span-2 border-2 border-primary/80 rounded-lg p-2.5 bg-primary/5">
                         <span className="text-primary font-semibold block mb-0.5 text-[11px]">Host (Crucial Step)</span>
-                        <div className="font-mono text-foreground text-sm font-bold">localhost</div>
+                        <div className="font-mono text-foreground text-xs break-all font-bold">mysql-15cc4cc3-shankar7750739-4ea9.i.aivencloud.com</div>
                       </div>
                       <div>
                         <span className="text-muted-foreground block mb-1">Port</span>
-                        <div className="bg-background border p-2 rounded font-mono text-foreground">{selectedDb === 'mysql' ? '3306' : '5432'}</div>
+                        <div className="bg-background border p-2 rounded font-mono text-foreground">25249</div>
                       </div>
                       <div>
                         <span className="text-muted-foreground block mb-1">Username</span>
-                        <div className="bg-background border p-2 rounded font-mono text-foreground">{selectedDb === 'mysql' ? 'root' : 'postgres'}</div>
+                        <div className="bg-background border p-2 rounded font-mono text-foreground">avnadmin</div>
                       </div>
                       <div className="col-span-2">
                         <span className="text-muted-foreground block mb-1">Database Name</span>
@@ -415,7 +415,7 @@ const Dashboard = () => {
                         </div>
                         <div>
                           <h4 className="font-semibold text-sm">Aiven MySQL</h4>
-                          <p className="text-[10px] text-muted-foreground uppercase">{selectedDb} • cloud:{selectedDb === 'mysql' ? '25249' : '5432'}</p>
+                          <p className="text-[10px] text-muted-foreground uppercase">MYSQL • mysql-15cc4cc3-shankar7750739-4ea9.i.aivencloud.com:25249</p>
                         </div>
                       </div>
                       <CheckCircle2 className="text-primary h-5 w-5 fill-primary/10" />
