@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { 
-  Database, 
-  TerminalSquare, 
-  Activity, 
-  Check, 
-  ChevronRight, 
-  ChevronLeft, 
-  Copy, 
-  ExternalLink, 
-  AlertCircle, 
-  Play, 
-  Sparkles, 
-  CheckCircle2, 
-  Info, 
-  Server, 
+import {
+  Database,
+  TerminalSquare,
+  Activity,
+  Check,
+  ChevronRight,
+  ChevronLeft,
+  Copy,
+  ExternalLink,
+  AlertCircle,
+  Play,
+  Sparkles,
+  CheckCircle2,
+  Info,
+  Server,
   HelpCircle,
   ChevronDown
 } from 'lucide-react';
@@ -27,7 +27,7 @@ const Dashboard = () => {
     queries: 0,
   });
   const [systemStatus, setSystemStatus] = useState<'checking' | 'operational' | 'offline'>('checking');
-  
+
   // Interactive wizard states
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedDb, setSelectedDb] = useState<'mysql' | 'postgres'>('mysql');
@@ -86,7 +86,7 @@ const Dashboard = () => {
             <div className="text-2xl font-bold">{stats.databases}</div>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Queries Executed</CardTitle>
@@ -100,22 +100,20 @@ const Dashboard = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">System Status</CardTitle>
-            <Activity className={`h-4 w-4 ${
-              systemStatus === 'operational' 
-                ? 'text-emerald-500 animate-pulse' 
-                : systemStatus === 'checking' 
-                ? 'text-blue-400 animate-spin' 
-                : 'text-red-500'
-            }`} />
+            <Activity className={`h-4 w-4 ${systemStatus === 'operational'
+                ? 'text-emerald-500 animate-pulse'
+                : systemStatus === 'checking'
+                  ? 'text-blue-400 animate-spin'
+                  : 'text-red-500'
+              }`} />
           </CardHeader>
           <CardContent>
-            <div className={`text-2xl font-bold ${
-              systemStatus === 'operational' 
-                ? 'text-emerald-500' 
-                : systemStatus === 'checking' 
-                ? 'text-blue-400' 
-                : 'text-red-500'
-            }`}>
+            <div className={`text-2xl font-bold ${systemStatus === 'operational'
+                ? 'text-emerald-500'
+                : systemStatus === 'checking'
+                  ? 'text-blue-400'
+                  : 'text-red-500'
+              }`}>
               {systemStatus === 'checking' ? 'Checking...' : systemStatus === 'operational' ? 'Operational' : 'Offline'}
             </div>
           </CardContent>
@@ -129,10 +127,10 @@ const Dashboard = () => {
             <div>
               <CardTitle className="text-xl font-bold text-foreground flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-violet-400" />
-                Getting Started: Connect & Execute SQL on Local Host
+                Getting Started: Connect & Execute SQL on Cloud Host
               </CardTitle>
               <CardDescription className="mt-1 text-sm">
-                Follow this step-by-step interactive guide to link your local database and perform AI-powered query execution.
+                Follow this step-by-step interactive guide to link your cloud database and perform AI-powered query execution.
               </CardDescription>
             </div>
             <div className="text-xs bg-violet-500/10 text-violet-400 border border-violet-500/20 px-3 py-1.5 rounded-full font-semibold self-start md:self-center">
@@ -140,7 +138,7 @@ const Dashboard = () => {
             </div>
           </div>
         </CardHeader>
-        
+
         <CardContent className="pt-6">
           {/* Progress Timeline Tracker */}
           <div className="mb-8 hidden md:block">
@@ -148,32 +146,30 @@ const Dashboard = () => {
               {/* Progress Line Background */}
               <div className="absolute top-5 left-12 right-12 h-[2px] bg-secondary z-0" />
               {/* Active Progress Line */}
-              <div 
-                className="absolute top-5 left-12 h-[2px] bg-primary z-0 transition-all duration-500 ease-in-out" 
+              <div
+                className="absolute top-5 left-12 h-[2px] bg-primary z-0 transition-all duration-500 ease-in-out"
                 style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 82}%` }}
               />
-              
+
               {steps.map((step) => {
                 const isCompleted = step.id < currentStep;
                 const isActive = step.id === currentStep;
                 return (
-                  <button 
-                    key={step.id} 
+                  <button
+                    key={step.id}
                     onClick={() => setCurrentStep(step.id)}
                     className="z-10 flex flex-col items-center group focus:outline-none"
                   >
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
-                      isCompleted 
-                        ? 'bg-primary border-primary text-primary-foreground' 
-                        : isActive 
-                        ? 'bg-background border-primary text-primary scale-110 ring-4 ring-primary/20' 
-                        : 'bg-background border-muted text-muted-foreground group-hover:border-muted-foreground'
-                    }`}>
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${isCompleted
+                        ? 'bg-primary border-primary text-primary-foreground'
+                        : isActive
+                          ? 'bg-background border-primary text-primary scale-110 ring-4 ring-primary/20'
+                          : 'bg-background border-muted text-muted-foreground group-hover:border-muted-foreground'
+                      }`}>
                       {isCompleted ? <Check className="w-5 h-5" /> : step.id}
                     </div>
-                    <span className={`text-xs font-semibold mt-2 transition-colors ${
-                      isActive ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
-                    }`}>
+                    <span className={`text-xs font-semibold mt-2 transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                      }`}>
                       {step.title}
                     </span>
                     <span className="text-[10px] text-muted-foreground hidden lg:block mt-0.5 max-w-[120px] text-center">
@@ -201,21 +197,19 @@ const Dashboard = () => {
                 <div className="flex gap-2 border-b border-border/40 pb-px">
                   <button
                     onClick={() => setSelectedDb('mysql')}
-                    className={`px-4 py-2 text-sm font-semibold border-b-2 transition-all ${
-                      selectedDb === 'mysql' 
-                        ? 'border-primary text-primary' 
+                    className={`px-4 py-2 text-sm font-semibold border-b-2 transition-all ${selectedDb === 'mysql'
+                        ? 'border-primary text-primary'
                         : 'border-transparent text-muted-foreground hover:text-foreground'
-                    }`}
+                      }`}
                   >
                     MySQL
                   </button>
                   <button
                     onClick={() => setSelectedDb('postgres')}
-                    className={`px-4 py-2 text-sm font-semibold border-b-2 transition-all ${
-                      selectedDb === 'postgres' 
-                        ? 'border-primary text-primary' 
+                    className={`px-4 py-2 text-sm font-semibold border-b-2 transition-all ${selectedDb === 'postgres'
+                        ? 'border-primary text-primary'
                         : 'border-transparent text-muted-foreground hover:text-foreground'
-                    }`}
+                      }`}
                   >
                     PostgreSQL
                   </button>
@@ -234,7 +228,7 @@ const Dashboard = () => {
                   <div className="space-y-3">
                     <h4 className="text-sm font-semibold text-foreground">Service Status Commands</h4>
                     <p className="text-xs text-muted-foreground">Check or start your local service using terminal:</p>
-                    
+
                     <div className="space-y-3">
                       {selectedDb === 'mysql' ? (
                         <>
@@ -242,7 +236,7 @@ const Dashboard = () => {
                             <div className="text-[10px] text-muted-foreground uppercase font-mono">Windows (PowerShell)</div>
                             <div className="flex items-center justify-between bg-background border p-2.5 rounded-lg text-xs font-mono">
                               <span className="truncate">Get-Service -Name MySQL*</span>
-                              <button 
+                              <button
                                 onClick={() => handleCopy('Get-Service -Name MySQL*', 'win-mysql')}
                                 className="p-1 hover:bg-secondary rounded text-muted-foreground hover:text-foreground"
                                 title="Copy command"
@@ -256,7 +250,7 @@ const Dashboard = () => {
                             <div className="text-[10px] text-muted-foreground uppercase font-mono">macOS (Homebrew)</div>
                             <div className="flex items-center justify-between bg-background border p-2.5 rounded-lg text-xs font-mono">
                               <span className="truncate">brew services status mysql</span>
-                              <button 
+                              <button
                                 onClick={() => handleCopy('brew services status mysql', 'mac-mysql')}
                                 className="p-1 hover:bg-secondary rounded text-muted-foreground hover:text-foreground"
                                 title="Copy command"
@@ -272,7 +266,7 @@ const Dashboard = () => {
                             <div className="text-[10px] text-muted-foreground uppercase font-mono">Windows (PowerShell)</div>
                             <div className="flex items-center justify-between bg-background border p-2.5 rounded-lg text-xs font-mono">
                               <span className="truncate">Get-Service -Name postgresql*</span>
-                              <button 
+                              <button
                                 onClick={() => handleCopy('Get-Service -Name postgresql*', 'win-pg')}
                                 className="p-1 hover:bg-secondary rounded text-muted-foreground hover:text-foreground"
                                 title="Copy command"
@@ -286,7 +280,7 @@ const Dashboard = () => {
                             <div className="text-[10px] text-muted-foreground uppercase font-mono">macOS (Homebrew)</div>
                             <div className="flex items-center justify-between bg-background border p-2.5 rounded-lg text-xs font-mono">
                               <span className="truncate">brew services status postgresql</span>
-                              <button 
+                              <button
                                 onClick={() => handleCopy('brew services status postgresql', 'mac-pg')}
                                 className="p-1 hover:bg-secondary rounded text-muted-foreground hover:text-foreground"
                                 title="Copy command"
@@ -310,7 +304,7 @@ const Dashboard = () => {
                     <Database className="w-5 h-5 text-primary" /> Step 2: Add Database Connection
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">
-                    Configure your connection. The platform runs locally, allowing it to communicate with your localhost database.
+                    Configure your connection. The platform runs in the cloud, allowing it to communicate with your database server.
                   </p>
                 </div>
 
@@ -320,7 +314,7 @@ const Dashboard = () => {
                       <Info className="w-5 h-5 shrink-0 mt-0.5" />
                       <div>
                         <span className="font-semibold block mb-0.5">Host and Connection Rules:</span>
-                        For local database engines, ensure the Host input is set to <code className="bg-amber-500/20 px-1 py-0.5 rounded font-mono border border-amber-500/30">localhost</code> or <code className="bg-amber-500/20 px-1 py-0.5 rounded font-mono border border-amber-500/30">127.0.0.1</code>. This instructs SQL GPT to connect directly to your local server.
+                        For cloud database engines, ensure the Host input is set to your database provider's public host URL. This instructs SQL GPT to connect directly to your database server.
                       </div>
                     </div>
 
@@ -333,8 +327,8 @@ const Dashboard = () => {
                     </div>
 
                     <div>
-                      <Link 
-                        to="/db-connection" 
+                      <Link
+                        to="/db-connection"
                         className="inline-flex items-center gap-1.5 bg-primary hover:bg-primary/95 text-primary-foreground text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors shadow-md shadow-primary/10"
                       >
                         Go to DB Connection <ChevronRight className="w-4 h-4" />
@@ -348,7 +342,7 @@ const Dashboard = () => {
                       Visual Form Guide
                     </div>
                     <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Example Settings</h4>
-                    
+
                     <div className="grid grid-cols-2 gap-3 text-xs">
                       <div>
                         <span className="text-muted-foreground block mb-1">Connection Name</span>
@@ -403,8 +397,8 @@ const Dashboard = () => {
                       <li>Your Dashboard statistic card for "Connected DB Connections" will increment.</li>
                     </ol>
                     <div>
-                      <Link 
-                        to="/db-connection" 
+                      <Link
+                        to="/db-connection"
                         className="inline-flex items-center gap-1.5 border border-border hover:bg-accent text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors"
                       >
                         Select Active Connection <ExternalLink className="w-4 h-4" />
@@ -421,7 +415,7 @@ const Dashboard = () => {
                         </div>
                         <div>
                           <h4 className="font-semibold text-sm">Aiven MySQL</h4>
-                          <p className="text-[10px] text-muted-foreground uppercase">{selectedDb} • localhost:{selectedDb === 'mysql' ? '3306' : '5432'}</p>
+                          <p className="text-[10px] text-muted-foreground uppercase">{selectedDb} • cloud:{selectedDb === 'mysql' ? '25249' : '5432'}</p>
                         </div>
                       </div>
                       <CheckCircle2 className="text-primary h-5 w-5 fill-primary/10" />
@@ -468,8 +462,8 @@ const Dashboard = () => {
                     </div>
 
                     <div>
-                      <Link 
-                        to="/editor" 
+                      <Link
+                        to="/editor"
                         className="inline-flex items-center gap-1.5 bg-primary hover:bg-primary/95 text-primary-foreground text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors shadow-md shadow-primary/10"
                       >
                         Open SQL Editor <Sparkles className="w-4 h-4" />
@@ -480,7 +474,7 @@ const Dashboard = () => {
                   <div className="border rounded-xl bg-background/50 p-5 flex flex-col justify-between">
                     <div className="space-y-4">
                       <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider block">Execution Pipeline</span>
-                      
+
                       <div className="space-y-3 text-xs">
                         <div className="bg-background p-2.5 rounded border flex items-center justify-between">
                           <span className="text-muted-foreground">Prompt:</span>
@@ -528,7 +522,7 @@ const Dashboard = () => {
 
           {/* Troubleshooting Section */}
           <div className="mt-8 border-t border-border/40 pt-6">
-            <button 
+            <button
               onClick={() => setOpenTroubleshooting(!openTroubleshooting)}
               className="flex items-center justify-between w-full text-left font-semibold text-foreground hover:text-primary transition-colors focus:outline-none"
             >
@@ -538,7 +532,7 @@ const Dashboard = () => {
               </span>
               <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${openTroubleshooting ? 'transform rotate-180' : ''}`} />
             </button>
-            
+
             {openTroubleshooting && (
               <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3 text-xs animate-in fade-in duration-200">
                 <div className="border p-4 rounded-xl bg-background/30 space-y-2">
