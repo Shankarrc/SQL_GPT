@@ -5,6 +5,7 @@ import { useAuthStore } from '../store/useAuthStore';
 import api from '../services/api';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Sparkles, TerminalSquare, AlertCircle } from 'lucide-react';
+import Footer from '../components/Footer';
 
 const Login = () => {
   const [error, setError] = useState('');
@@ -34,14 +35,16 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-zinc-950 to-black dark text-foreground p-4 overflow-hidden relative">
+    <div className="min-h-screen flex flex-col justify-between bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-zinc-950 to-black dark text-foreground overflow-hidden relative">
       {/* Decorative ambient glowing background circles */}
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-blue-500/10 blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-96 h-96 rounded-full bg-emerald-500/10 blur-[100px] pointer-events-none" />
 
-      <Card className="w-full max-w-md border-white/5 bg-black/40 backdrop-blur-xl shadow-2xl relative overflow-hidden transition-all duration-300 hover:border-blue-500/20">
-        {/* Glow accent line at top */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500" />
+      {/* Main card wrapper (centered vertically in flex-1) */}
+      <div className="flex-1 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md border-white/5 bg-black/40 backdrop-blur-xl shadow-2xl relative overflow-hidden transition-all duration-300 hover:border-blue-500/20">
+          {/* Glow accent line at top */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500" />
         
         <CardHeader className="space-y-4 text-center pt-8">
           <div className="mx-auto w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
@@ -97,7 +100,11 @@ const Login = () => {
             )}
           </div>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
