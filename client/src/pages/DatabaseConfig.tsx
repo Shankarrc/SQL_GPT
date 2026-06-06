@@ -53,7 +53,7 @@ const DatabaseConfig = () => {
   };
 
   return (
-    <div className="p-8 space-y-8">
+    <div className="p-4 sm:p-8 space-y-6 sm:space-y-8">
       <div>
         <h2 className="text-3xl font-bold tracking-tight">DB Connection</h2>
         <p className="text-muted-foreground mt-2">Manage your external database connections.</p>
@@ -71,7 +71,7 @@ const DatabaseConfig = () => {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleConnect} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Connection Name</label>
                   <Input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} placeholder="Production DB" />
@@ -82,7 +82,7 @@ const DatabaseConfig = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Host <span className="text-red-500 font-semibold">(Don't change)</span></label>
                   <Input required value={formData.host} onChange={e => setFormData({ ...formData, host: e.target.value })} />
@@ -93,7 +93,7 @@ const DatabaseConfig = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Username <span className="text-red-500 font-semibold">(Don't change)</span></label>
                   <Input required value={formData.username} onChange={e => setFormData({ ...formData, username: e.target.value })} />
@@ -145,16 +145,16 @@ const DatabaseConfig = () => {
                   className={`flex items-center justify-between p-4 rounded-lg border transition-all ${activeConnection?._id === conn._id ? 'border-primary bg-primary/5' : 'hover:border-primary/50 cursor-pointer'}`}
                   onClick={() => setActiveConnection(conn)}
                 >
-                  <div className="flex items-center space-x-4">
-                    <div className="p-2 rounded-full bg-orange-500/10 text-orange-500">
+                  <div className="flex items-center space-x-4 min-w-0 flex-1">
+                    <div className="p-2 rounded-full bg-orange-500/10 text-orange-500 shrink-0">
                       <Database size={24} />
                     </div>
-                    <div>
-                      <h4 className="font-semibold">{conn.name}</h4>
-                      <p className="text-xs text-muted-foreground">{conn.type.toUpperCase()} • {conn.host}:{conn.port}</p>
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-semibold truncate">{conn.name}</h4>
+                      <p className="text-xs text-muted-foreground break-all">{conn.type.toUpperCase()} • {conn.host}:{conn.port}</p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 shrink-0 pl-2">
                     {activeConnection?._id === conn._id && (
                       <CheckCircle2 className="text-primary h-5 w-5" />
                     )}

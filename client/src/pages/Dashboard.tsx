@@ -68,7 +68,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="p-8 space-y-8">
+    <div className="p-4 sm:p-8 space-y-6 sm:space-y-8">
       <div>
         <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
         <p className="text-muted-foreground mt-2">Overview of your SQL GPT usage.</p>
@@ -181,7 +181,7 @@ const Dashboard = () => {
           </div>
 
           {/* Steps Content Area */}
-          <div className="min-h-[280px] bg-secondary/10 p-6 rounded-xl border border-border/30">
+          <div className="min-h-[280px] bg-secondary/10 p-4 sm:p-6 rounded-xl border border-border/30">
             {currentStep === 1 && (
               <div className="space-y-6">
                 <div>
@@ -196,7 +196,7 @@ const Dashboard = () => {
                 <div className="grid gap-6 md:grid-cols-2">
                   <div className="space-y-3">
                     <h4 className="text-sm font-semibold text-foreground">Aiven Cloud Configuration</h4>
-                    <div className="bg-secondary/40 p-4 rounded-lg border text-sm space-y-2 font-mono">
+                    <div className="bg-secondary/40 p-4 rounded-lg border text-sm space-y-2 font-mono break-all">
                       <div><span className="text-muted-foreground">Host:</span> mysql-15cc4cc3-shankar7750739-4ea9.i.aivencloud.com</div>
                       <div><span className="text-muted-foreground">Port:</span> 25249</div>
                       <div><span className="text-muted-foreground">Username:</span> avnadmin</div>

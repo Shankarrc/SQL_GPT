@@ -34,6 +34,16 @@ const SqlEditor = () => {
   const [history, setHistory] = useState<any[]>([]);
   const [historyLoading, setHistoryLoading] = useState(false);
   const [expandedHistoryConns, setExpandedHistoryConns] = useState<Record<string, boolean>>({});
+  const [mobileActiveTab, setMobileActiveTab] = useState<'sidebar' | 'editor' | 'results'>('sidebar');
+
+  useEffect(() => {
+    if (mobileActiveTab === 'editor') {
+      const timer = setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [mobileActiveTab]);
 
   // Toggle history connection expansion
   const toggleHistoryConn = (connId: string) => {
@@ -237,9 +247,45 @@ const SqlEditor = () => {
   }, {});
 
   return (
-    <div className="flex h-full">
+    <div className="flex flex-col md:flex-row h-full overflow-hidden">
+      {/* Mobile view sub-tabs */}
+      <div className="md:hidden flex border-b bg-card shrink-0">
+        <button
+          onClick={() => setMobileActiveTab('sidebar')}
+          className={`flex-1 py-3 text-xs font-semibold text-center border-b-2 transition-all ${
+            mobileActiveTab === 'sidebar'
+              ? 'border-primary text-primary'
+              : 'border-transparent text-muted-foreground'
+          }`}
+        >
+          Assistant & DB
+        </button>
+        <button
+          onClick={() => setMobileActiveTab('editor')}
+          className={`flex-1 py-3 text-xs font-semibold text-center border-b-2 transition-all ${
+            mobileActiveTab === 'editor'
+              ? 'border-primary text-primary'
+              : 'border-transparent text-muted-foreground'
+          }`}
+        >
+          Editor
+        </button>
+        <button
+          onClick={() => setMobileActiveTab('results')}
+          className={`flex-1 py-3 text-xs font-semibold text-center border-b-2 transition-all ${
+            mobileActiveTab === 'results'
+              ? 'border-primary text-primary'
+              : 'border-transparent text-muted-foreground'
+          }`}
+        >
+          Results ({queryResults.length})
+        </button>
+      </div>
+
       {/* Tabbed Sidebar */}
-      <div className="w-80 border-r bg-card flex flex-col h-full">
+      <div className={`w-80 border-r bg-card flex-col h-full shrink-0 ${
+        mobileActiveTab === 'sidebar' ? 'flex w-full md:w-80' : 'hidden md:flex'
+      }`}>
         {/* Tab Headers */}
         <div className="flex border-b bg-muted/10">
           <button
@@ -668,16 +714,20 @@ const SqlEditor = () => {
       </div>
 
       {/* Main Editor Area */}
-      <div className="flex-1 flex flex-col min-w-0">
-        <div className="h-1/2 flex flex-col border-b">
-          <div className="flex items-center justify-between p-2 bg-muted/30 border-b">
+      <div className={`flex-1 flex-col min-w-0 ${
+        mobileActiveTab !== 'sidebar' ? 'flex' : 'hidden md:flex'
+      }`}>
+        <div className={`flex-col border-b ${
+          mobileActiveTab === 'editor' ? 'flex-1 flex' : 'h-1/2 flex'
+        } ${mobileActiveTab === 'results' ? 'hidden md:flex' : ''}`}>
+          <div className="flex items-center justify-between p-2 bg-muted/30 border-b shrink-0">
             <div className="flex items-center space-x-4 px-2">
-              <span className="text-sm font-medium text-muted-foreground">
+              <span className="text-sm font-medium text-muted-foreground truncate max-w-[200px]">
                 {activeConnection ? `Connected: ${activeConnection.name}` : 'No connection'}
               </span>
             </div>
-            <div className="flex items-center space-x-2">
-              <Button variant="ghost" size="sm" onClick={copySql}>
+            <div className="flex items-center space-x-2 shrink-0">
+              <Button variant="ghost" size="sm" onClick={copySql} aria-label="Copy SQL code">
                 {copied ? <Check size={16} /> : <Copy size={16} />}
               </Button>
               <Button
@@ -691,7 +741,7 @@ const SqlEditor = () => {
               </Button>
             </div>
           </div>
-          <div className={`flex-1 ${theme === 'dark' ? 'bg-[#1e1e1e]' : 'bg-white'}`}>
+          <div className={`flex-1 min-h-0 ${theme === 'dark' ? 'bg-[#1e1e1e]' : 'bg-white'}`}>
             <Editor
               height="100%"
               language="sql"
@@ -709,8 +759,10 @@ const SqlEditor = () => {
         </div>
 
         {/* Results Area */}
-        <div className="h-1/2 flex flex-col bg-background">
-          <div className="p-2 border-b flex items-center space-x-2 bg-muted/30">
+        <div className={`flex-col bg-background ${
+          mobileActiveTab === 'results' ? 'flex-1 flex' : 'h-1/2 flex'
+        } ${mobileActiveTab === 'editor' ? 'hidden md:flex' : ''}`}>
+          <div className="p-2 border-b flex items-center space-x-2 bg-muted/30 shrink-0">
             <Table2 size={16} className="text-muted-foreground" />
             <span className="text-sm font-medium">Results</span>
           </div>
@@ -720,12 +772,12 @@ const SqlEditor = () => {
                 No results to display
               </div>
             ) : (
-              <div className="border rounded-md overflow-hidden">
-                <table className="w-full text-sm text-left">
-                  <thead className="text-xs text-muted-foreground uppercase bg-muted/50 border-b">
+              <div className="border rounded-md overflow-x-auto">
+                <table className="w-full text-sm text-left border-collapse">
+                  <thead className="text-xs text-muted-foreground uppercase bg-muted/50 border-b whitespace-nowrap">
                     <tr>
                       {Object.keys(queryResults[0] || {}).map(key => (
-                        <th key={key} className="px-4 py-3">{key}</th>
+                        <th key={key} className="px-4 py-3 whitespace-nowrap">{key}</th>
                       ))}
                     </tr>
                   </thead>

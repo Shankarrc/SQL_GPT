@@ -4,6 +4,7 @@ import {
   Database,
   ChevronDown,
   ChevronRight,
+  ChevronLeft,
   Plus,
   Trash2,
   Search,
@@ -573,7 +574,9 @@ export default function Databases() {
     <div className="flex h-full w-full bg-background text-foreground font-sans antialiased select-none">
 
       {/* LEFT SIDEBAR: Real Database Explorer */}
-      <aside className="w-80 border-r border-border bg-card flex flex-col h-full shadow-sm shrink-0">
+      <aside className={`w-80 border-r border-border bg-card flex flex-col h-full shadow-sm shrink-0 ${
+        activeTableName ? 'hidden md:flex' : 'w-full md:w-80 flex'
+      }`}>
 
         {/* Title Header */}
         <div className="px-6 py-5 border-b border-border flex items-center justify-between">
@@ -763,7 +766,9 @@ export default function Databases() {
       </aside>
 
       {/* MAIN CONTENT AREA */}
-      <main className="flex-1 flex flex-col h-full overflow-hidden bg-background">
+      <main className={`flex-1 flex flex-col h-full overflow-hidden bg-background ${
+        activeTableName ? 'flex' : 'hidden md:flex'
+      }`}>
 
         {loadingData ? (
           <div className="flex-1 flex flex-col items-center justify-center space-y-4">
@@ -772,23 +777,34 @@ export default function Databases() {
           </div>
         ) : activeTableName ? (
           /* TABLE SELECTED: Live CRUD Operations Panel */
-          <div className="flex-1 flex flex-col overflow-hidden bg-card m-6 rounded-xl border border-border shadow-sm animate-fadeIn">
+          <div className="flex-1 flex flex-col overflow-hidden bg-card m-0 sm:m-6 sm:rounded-xl sm:border border-border shadow-sm animate-fadeIn">
 
             {/* Table Header / Dynamic Breadcrumb */}
-            <div className="px-6 py-5 border-b border-border flex items-center justify-between">
-              <div className="flex items-center space-x-3 text-sm">
-                <div className="flex items-center space-x-1.5 text-muted-foreground">
-                  <Server size={15} />
-                  <span className="font-semibold">{activeConn?.name}</span>
-                  <span className="text-xs text-muted-foreground/80">({activeConn?.database})</span>
-                </div>
-                <span className="text-muted-foreground/30 font-bold">/</span>
-                <div className="flex items-center space-x-1.5 text-foreground font-semibold">
-                  <Table2 size={16} className="text-primary" />
-                  <span className="text-base text-foreground">{activeTableName}</span>
-                  <span className="bg-muted text-muted-foreground text-xs px-2 py-0.5 rounded-full font-normal">
-                    {records.length === 100 ? '100+ rows' : `${records.length} row${records.length !== 1 ? 's' : ''}`}
-                  </span>
+            <div className="px-4 sm:px-6 py-5 border-b border-border flex items-center justify-between gap-4">
+              <div className="flex items-center space-x-2.5 min-w-0">
+                {/* Mobile Back Button */}
+                <button
+                  onClick={() => setActiveTableName(null)}
+                  className="md:hidden p-1.5 hover:bg-accent rounded-lg text-muted-foreground hover:text-foreground shrink-0"
+                  title="Back to Databases list"
+                >
+                  <ChevronLeft size={18} className="stroke-[2.5]" />
+                </button>
+                
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:space-x-3 text-sm min-w-0">
+                  <div className="flex items-center space-x-1.5 text-muted-foreground min-w-0">
+                    <Server size={15} className="shrink-0" />
+                    <span className="font-semibold truncate max-w-[100px]">{activeConn?.name}</span>
+                    <span className="text-xs text-muted-foreground/80 truncate max-w-[80px]">({activeConn?.database})</span>
+                  </div>
+                  <span className="text-muted-foreground/30 font-bold hidden sm:inline">/</span>
+                  <div className="flex items-center space-x-1.5 text-foreground font-semibold min-w-0">
+                    <Table2 size={16} className="text-primary shrink-0" />
+                    <span className="text-sm sm:text-base text-foreground truncate max-w-[120px]">{activeTableName}</span>
+                    <span className="bg-muted text-muted-foreground text-[10px] px-1.5 py-0.5 rounded-full font-normal shrink-0">
+                      {records.length === 100 ? '100+' : records.length}
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -858,7 +874,7 @@ export default function Databases() {
                   <thead className="text-[11px] text-muted-foreground font-semibold bg-muted/40 border-b border-border sticky top-0 uppercase tracking-wider">
                     <tr>
                       {columns.map(col => (
-                        <th key={col.name} className="px-5 py-3 border-b font-semibold border-border text-muted-foreground bg-muted/40" title={`${col.name}: ${col.type}`}>
+                        <th key={col.name} className="px-5 py-3 border-b font-semibold border-border text-muted-foreground bg-muted/40 whitespace-nowrap" title={`${col.name}: ${col.type}`}>
                           {col.name} <span className="text-[9px] text-muted-foreground/60 font-normal lowercase">({col.type})</span>
                         </th>
                       ))}

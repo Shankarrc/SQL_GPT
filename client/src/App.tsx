@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import DatabaseConfig from './pages/DatabaseConfig';
 import Databases from './pages/Databases';
 import SqlEditor from './pages/SqlEditor';
+import About from './pages/About';
 import Layout from './components/Layout';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -29,6 +30,7 @@ function App() {
           <Route path="databases" element={<Databases />} />
           <Route path="db-connection" element={<DatabaseConfig />} />
           <Route path="editor" element={<SqlEditor />} />
+          <Route path="about" element={<About />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
