@@ -283,7 +283,7 @@ const SqlEditor = () => {
       </div>
 
       {/* Tabbed Sidebar */}
-      <div className={`w-80 border-r bg-card flex-col h-full shrink-0 ${
+      <div className={`w-80 border-r bg-card flex-col flex-1 min-h-0 md:h-full md:flex-initial md:shrink-0 ${
         mobileActiveTab === 'sidebar' ? 'flex w-full md:w-80' : 'hidden md:flex'
       }`}>
         {/* Tab Headers */}

@@ -20,7 +20,7 @@ const Layout = () => {
   ];
 
   return (
-    <div className={`flex flex-col h-screen bg-background text-foreground ${theme}`}>
+    <div className={`flex flex-col h-screen h-[100dvh] bg-background text-foreground ${theme}`}>
       {/* Mobile Header */}
       <header className="md:hidden flex items-center justify-between px-6 py-4 border-b bg-card z-30 shrink-0">
         <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400">
