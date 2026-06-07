@@ -11,5 +11,5 @@ spring:
 app:
   jwt-secret: ${JWT_SECRET:supersecretkey_dev_only}
   encryption-key: ${ENCRYPTION_KEY:12345678901234567890123456789012}
-  gemini-api-key: ${GEMINI_API_KEY:AIzaSyDsEzk0ambTtwENit4jzVX1c4yAi6WiXHM}
+  gemini-api-key: ${GEMINI_API_KEY}
   google-client-id: ${GOOGLE_CLIENT_ID:436923221992-sjnoh9rk3k9e2gsq4qd1vp6d6id750nm.apps.googleusercontent.com}
