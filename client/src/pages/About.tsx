@@ -1,4 +1,5 @@
-import { Mail, Sparkles } from 'lucide-react';
+import { Mail, Sparkles, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import devBanner from '../assets/dev_banner.png';
 import step1Verify from '../assets/step1_verify.png';
 import step2Config from '../assets/step2_config.png';
@@ -7,6 +8,7 @@ import step4Execute from '../assets/step4_execute.png';
 import loginScreen from '../assets/login.png';
 
 const About = () => {
+  const navigate = useNavigate();
   const skills = [
     'React', 'TypeScript', 'Java', 'Spring Boot', 'MySQL', 
     'Tailwind CSS', 'REST APIs', 'Generative AI', 'Zustand'
@@ -78,11 +80,20 @@ const About = () => {
   return (
     <div className="p-4 sm:p-8 space-y-8 max-w-7xl mx-auto overflow-y-auto h-full">
       {/* Page Header */}
-      <div>
-        <h2 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
-          About & Guide
-        </h2>
-        <p className="text-muted-foreground mt-2">Discover developer details and learn step-by-step how to configure and query databases.</p>
+      <div className="flex items-start space-x-4">
+        <button
+          onClick={() => navigate(-1)}
+          className="p-2.5 hover:bg-accent rounded-xl text-muted-foreground hover:text-foreground transition-all border border-border/80 bg-card/50 shadow-sm active:scale-95 shrink-0"
+          aria-label="Go back to previous page"
+        >
+          <ArrowLeft size={20} className="stroke-[2.5]" />
+        </button>
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
+            About & Guide
+          </h2>
+          <p className="text-muted-foreground mt-2">Discover developer details and learn step-by-step how to configure and query databases.</p>
+        </div>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-3">
