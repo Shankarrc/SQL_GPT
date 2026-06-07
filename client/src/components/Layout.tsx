@@ -193,7 +193,7 @@ const Layout = () => {
         </aside>
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-auto bg-background">
+        <main className="flex-1 overflow-auto bg-background flex flex-col h-full min-h-0">
           <Outlet />
         </main>
       </div>

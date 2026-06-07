@@ -714,10 +714,10 @@ const SqlEditor = () => {
       </div>
 
       {/* Main Editor Area */}
-      <div className={`flex-1 flex-col min-w-0 ${
+      <div className={`flex-1 flex-col min-w-0 min-h-0 ${
         mobileActiveTab !== 'sidebar' ? 'flex' : 'hidden md:flex'
       }`}>
-        <div className={`flex-col border-b ${
+        <div className={`flex-col border-b min-h-0 ${
           mobileActiveTab === 'editor' ? 'flex-1 flex' : 'h-1/2 flex'
         } ${mobileActiveTab === 'results' ? 'hidden md:flex' : ''}`}>
           <div className="flex items-center justify-between p-2 bg-muted/30 border-b shrink-0">
