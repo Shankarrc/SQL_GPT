@@ -475,7 +475,7 @@ const SqlEditor = () => {
                   <option value="" disabled>Select Database</option>
                   {connections.map((conn) => (
                     <option key={conn._id} value={conn._id}>
-                      {conn.name}
+                      {conn.database}
                     </option>
                   ))}
                 </select>
@@ -723,7 +723,7 @@ const SqlEditor = () => {
           <div className="flex items-center justify-between p-2 bg-muted/30 border-b shrink-0">
             <div className="flex items-center space-x-4 px-2">
               <span className="text-sm font-medium text-muted-foreground truncate max-w-[200px]">
-                {activeConnection ? `Connected: ${activeConnection.name}` : 'No connection'}
+                {activeConnection ? `Connected: ${activeConnection.database}` : 'No connection'}
               </span>
             </div>
             <div className="flex items-center space-x-2 shrink-0">

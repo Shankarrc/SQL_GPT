@@ -4,6 +4,7 @@ interface DatabaseConnection {
   _id: string;
   name: string;
   type: string;
+  database: string;
 }
 
 interface DbState {
