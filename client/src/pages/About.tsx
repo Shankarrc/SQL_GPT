@@ -1,6 +1,7 @@
 import { Mail, Sparkles, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useThemeStore } from '../store/useThemeStore';
+import Footer from '../components/Footer';
 import devBanner from '../assets/dev_banner.png';
 import step1Verify from '../assets/step1_verify.png';
 import step2Config from '../assets/step2_config.png';
@@ -80,8 +81,8 @@ const About = () => {
   ];
 
   return (
-    <div className={`min-h-screen bg-background text-foreground overflow-y-auto ${theme}`}>
-      <div className="p-4 sm:p-8 space-y-8 max-w-7xl mx-auto">
+    <div className={`min-h-screen bg-background text-foreground overflow-y-auto ${theme} flex flex-col justify-between`}>
+      <div className="p-4 sm:p-8 space-y-8 max-w-7xl mx-auto flex-1 w-full">
       {/* Page Header */}
       <div className="flex items-start space-x-4">
         <button
@@ -252,8 +253,9 @@ const About = () => {
           </div>
         </div>
       </div>
+      </div>
+      <Footer />
     </div>
-  </div>
   );
 };
 
