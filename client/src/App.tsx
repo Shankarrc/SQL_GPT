@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from './store/useAuthStore';
+import { useThemeStore } from './store/useThemeStore';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import DatabaseConfig from './pages/DatabaseConfig';
@@ -12,6 +13,24 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAuthStore();
   if (!user) return <Navigate to="/login" replace />;
   return <>{children}</>;
+};
+
+const AboutRoute = () => {
+  const { user } = useAuthStore();
+  const { theme } = useThemeStore();
+  
+  if (user) {
+    return (
+      <Layout>
+        <About />
+      </Layout>
+    );
+  }
+  return (
+    <div className={`min-h-screen bg-background text-foreground overflow-y-auto ${theme}`}>
+      <About />
+    </div>
+  );
 };
 
 function App() {
@@ -30,8 +49,9 @@ function App() {
           <Route path="databases" element={<Databases />} />
           <Route path="db-connection" element={<DatabaseConfig />} />
           <Route path="editor" element={<SqlEditor />} />
-          <Route path="about" element={<About />} />
         </Route>
+
+        <Route path="/about" element={<AboutRoute />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

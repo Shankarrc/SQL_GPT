@@ -6,7 +6,7 @@ import { useThemeStore } from '../store/useThemeStore';
 import { Toaster } from './ui/toaster';
 import Footer from './Footer';
 
-const Layout = () => {
+const Layout = ({ children }: { children?: React.ReactNode }) => {
   const { logout, user } = useAuthStore();
   const { theme, toggleTheme } = useThemeStore();
   const location = useLocation();
@@ -194,7 +194,7 @@ const Layout = () => {
 
         {/* Main Content Area */}
         <main className="flex-1 overflow-auto bg-background flex flex-col h-full min-h-0">
-          <Outlet />
+          {children || <Outlet />}
         </main>
       </div>
 
