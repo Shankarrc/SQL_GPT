@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from './store/useAuthStore';
-import { useThemeStore } from './store/useThemeStore';
+import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import DatabaseConfig from './pages/DatabaseConfig';
@@ -15,32 +15,20 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-const AboutRoute = () => {
-  const { user } = useAuthStore();
-  const { theme } = useThemeStore();
-  
-  if (user) {
-    return (
-      <Layout>
-        <About />
-      </Layout>
-    );
-  }
-  return (
-    <div className={`min-h-screen bg-background text-foreground overflow-y-auto ${theme}`}>
-      <About />
-    </div>
-  );
-};
-
 function App() {
+  const { user } = useAuthStore();
+
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        {/* Public Routes */}
+        <Route path="/" element={user ? <Navigate to="/app" replace /> : <Landing />} />
+        <Route path="/login" element={user ? <Navigate to="/app" replace /> : <Login />} />
         <Route path="/register" element={<Navigate to="/login" replace />} />
+        <Route path="/about" element={<About />} />
 
-        <Route path="/" element={
+        {/* Protected App Workspace Routes */}
+        <Route path="/app" element={
           <ProtectedRoute>
             <Layout />
           </ProtectedRoute>
@@ -51,9 +39,8 @@ function App() {
           <Route path="editor" element={<SqlEditor />} />
         </Route>
 
-        <Route path="/about" element={<AboutRoute />} />
-
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* Fallback Catch All */}
+        <Route path="*" element={<Navigate to={user ? "/app" : "/"} replace />} />
       </Routes>
     </Router>
   );

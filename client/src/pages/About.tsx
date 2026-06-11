@@ -1,5 +1,6 @@
 import { Mail, Sparkles, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useThemeStore } from '../store/useThemeStore';
 import devBanner from '../assets/dev_banner.png';
 import step1Verify from '../assets/step1_verify.png';
 import step2Config from '../assets/step2_config.png';
@@ -9,6 +10,7 @@ import loginScreen from '../assets/login.png';
 
 const About = () => {
   const navigate = useNavigate();
+  const { theme } = useThemeStore();
   const skills = [
     'React', 'TypeScript', 'Java', 'Spring Boot', 'MySQL', 
     'Tailwind CSS', 'REST APIs', 'Generative AI', 'Zustand'
@@ -78,7 +80,8 @@ const About = () => {
   ];
 
   return (
-    <div className="p-4 sm:p-8 space-y-8 max-w-7xl mx-auto overflow-y-auto h-full">
+    <div className={`min-h-screen bg-background text-foreground overflow-y-auto ${theme}`}>
+      <div className="p-4 sm:p-8 space-y-8 max-w-7xl mx-auto">
       {/* Page Header */}
       <div className="flex items-start space-x-4">
         <button
@@ -250,6 +253,7 @@ const About = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

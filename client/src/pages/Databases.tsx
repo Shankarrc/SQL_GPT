@@ -632,7 +632,7 @@ export default function Databases() {
             <div className="p-6 text-center text-xs text-muted-foreground space-y-3">
               <p>No active SQL connections found.</p>
               <button
-                onClick={() => navigate('/db-connection')}
+                onClick={() => navigate('/app/db-connection')}
                 className="inline-flex items-center space-x-1 bg-primary/10 text-primary font-bold px-3 py-1.5 rounded-lg border border-primary/20 hover:bg-primary/25 transition-colors"
               >
                 <span>Connect Server</span>
@@ -1002,7 +1002,7 @@ export default function Databases() {
               {/* Action buttons */}
               <div className="mt-8 pt-5 border-t border-border flex items-center justify-center space-x-3">
                 <button
-                  onClick={() => navigate('/db-connection')}
+                  onClick={() => navigate('/app/db-connection')}
                   className="inline-flex items-center space-x-1.5 bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-xs px-4 py-2.5 rounded-lg shadow-sm hover:shadow-md transition-all active:scale-[0.98]"
                 >
                   <Plus size={14} className="stroke-[2.5]" />

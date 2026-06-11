@@ -4,8 +4,9 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useAuthStore } from '../store/useAuthStore';
 import api from '../services/api';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Sparkles, TerminalSquare, AlertCircle } from 'lucide-react';
+import { Sparkles, AlertCircle } from 'lucide-react';
 import Footer from '../components/Footer';
+import logoImg from '../assets/logo.png';
 
 const Login = () => {
   const [error, setError] = useState('');
@@ -21,7 +22,7 @@ const Login = () => {
         credential: credentialResponse.credential,
       });
       setUser(response.data);
-      navigate('/');
+      navigate('/app');
     } catch (err: any) {
       console.error(err);
       setError(err.response?.data?.message || 'Google authentication failed. Please try again.');
@@ -47,8 +48,8 @@ const Login = () => {
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500" />
         
         <CardHeader className="space-y-4 text-center pt-8">
-          <div className="mx-auto w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
-            <TerminalSquare className="w-6 h-6 text-white" />
+          <div className="mx-auto w-16 h-16 rounded-xl overflow-hidden shadow-lg shadow-blue-500/20 border border-white/10 shrink-0">
+            <img src={logoImg} alt="SQLGPT Logo" className="w-full h-full object-cover" />
           </div>
           
           <div className="space-y-1">

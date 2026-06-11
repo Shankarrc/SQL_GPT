@@ -5,27 +5,33 @@ import { Database, LayoutDashboard, TerminalSquare, LogOut, Server, Sun, Moon, M
 import { useThemeStore } from '../store/useThemeStore';
 import { Toaster } from './ui/toaster';
 import Footer from './Footer';
+import logoImg from '../assets/logo.png';
 
-const Layout = ({ children }: { children?: React.ReactNode }) => {
+const Layout = () => {
   const { logout, user } = useAuthStore();
   const { theme, toggleTheme } = useThemeStore();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'Dashboard', path: '/', icon: LayoutDashboard },
-    { name: 'Databases', path: '/databases', icon: Database },
-    { name: 'DB Connection', path: '/db-connection', icon: Server },
-    { name: 'SQL Editor', path: '/editor', icon: TerminalSquare },
+    { name: 'Dashboard', path: '/app', icon: LayoutDashboard },
+    { name: 'Databases', path: '/app/databases', icon: Database },
+    { name: 'DB Connection', path: '/app/db-connection', icon: Server },
+    { name: 'SQL Editor', path: '/app/editor', icon: TerminalSquare },
   ];
 
   return (
     <div className={`flex flex-col h-screen h-[100dvh] bg-background text-foreground ${theme}`}>
       {/* Mobile Header */}
       <header className="md:hidden flex items-center justify-between px-6 py-4 border-b bg-card z-30 shrink-0">
-        <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400">
-          SQLGPT
-        </h1>
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 rounded-md overflow-hidden shrink-0 border border-slate-200/50 dark:border-zinc-800/50">
+            <img src={logoImg} alt="SQLGPT Logo" className="w-full h-full object-cover" />
+          </div>
+          <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400">
+            SQLGPT
+          </h1>
+        </div>
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent/80 transition-colors"
@@ -46,9 +52,14 @@ const Layout = ({ children }: { children?: React.ReactNode }) => {
           {/* Drawer Content */}
           <aside className="relative w-64 bg-card border-r flex flex-col h-full z-50 animate-in slide-in-from-left duration-200">
             <div className="p-6 border-b flex items-center justify-between">
-              <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400">
-                SQLGPT
-              </h1>
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-md overflow-hidden shrink-0 border border-slate-200/50 dark:border-zinc-800/50">
+                  <img src={logoImg} alt="SQLGPT Logo" className="w-full h-full object-cover" />
+                </div>
+                <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400">
+                  SQLGPT
+                </h1>
+              </div>
               <button
                 onClick={() => setMenuOpen(false)}
                 className="p-1.5 hover:bg-accent rounded-lg text-muted-foreground hover:text-foreground"
@@ -127,7 +138,10 @@ const Layout = ({ children }: { children?: React.ReactNode }) => {
       <div className="flex flex-1 overflow-hidden">
         {/* Desktop Sidebar */}
         <aside className="hidden md:flex w-64 border-r bg-card flex-col">
-          <div className="p-6 border-b">
+          <div className="p-6 border-b flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-md overflow-hidden shrink-0 border border-slate-200/50 dark:border-zinc-800/50">
+              <img src={logoImg} alt="SQLGPT Logo" className="w-full h-full object-cover" />
+            </div>
             <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400">
               SQLGPT
             </h1>
@@ -194,7 +208,7 @@ const Layout = ({ children }: { children?: React.ReactNode }) => {
 
         {/* Main Content Area */}
         <main className="flex-1 overflow-auto bg-background flex flex-col h-full min-h-0">
-          {children || <Outlet />}
+          <Outlet />
         </main>
       </div>
 
